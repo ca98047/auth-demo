@@ -5,6 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import java.util.Date;
+
 public class JwtServiceImpl implements JwtService {
 
     private final String hmacSecretKey = "jinowKey";
@@ -18,6 +20,7 @@ public class JwtServiceImpl implements JwtService {
                 .withIssuer(issuer)
                 .withClaim("memberId", memberId)
                 .withClaim("memberName", memberName)
+                .withIssuedAt(new Date())
                 .sign(algorithm);
     }
 

@@ -1,4 +1,4 @@
-package com.jinow.auth.service;
+package com.jinow.auth.jwt.service;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 
 @Slf4j
 @SpringBootTest(classes = AuthDemoApplication.class)

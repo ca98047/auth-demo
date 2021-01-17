@@ -1,4 +1,4 @@
-package com.jinow.auth.service;
+package com.jinow.auth.jwt.service;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 

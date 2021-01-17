@@ -1,4 +1,4 @@
-package com.jinow.auth.vo;
+package com.jinow.auth.jwt.vo;
 
 import lombok.Getter;
 import lombok.Setter;

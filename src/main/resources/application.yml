@@ -1,4 +1,8 @@
 
 jwt:
-  hmac-secret : jinowHmacSecretKey
+  hmac-secret : ENC(hZIH77O0AD1x6USYJiGk6SGxCVU1R60livwaZ8uz6i4=)
   issuer : jinow
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor

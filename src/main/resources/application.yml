@@ -1,6 +1,6 @@
 
 jwt:
-  hmac-secret : ENC(hZIH77O0AD1x6USYJiGk6SGxCVU1R60livwaZ8uz6i4=)
+  hmac-secret : ENC(zDxIxPJx949pUw4r0OZDURSYqfn9EwsS793FU3nBFmBeh8Mc94jS9MDN3p6ZdYls)
   issuer : jinow
 
 jasypt:

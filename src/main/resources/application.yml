@@ -1,0 +1,4 @@
+
+jwt:
+  hmac-secret : jinowHmacSecretKey
+  issuer : jinow

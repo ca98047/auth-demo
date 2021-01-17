@@ -2,17 +2,22 @@ package com.jinow.auth.service;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.jinow.auth.AuthDemoApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 @Slf4j
+@SpringBootTest(classes = AuthDemoApplication.class)
 public class JwtServiceTest {
+
+    @Autowired
     JwtService jwtService;
 
     @BeforeAll
@@ -22,11 +27,9 @@ public class JwtServiceTest {
 
     @BeforeEach
     public void beforeTest() {
-        jwtService = new JwtServiceImpl();
     }
 
     @Test
-    @Disabled
     public void 토큰생성() {
         String jwtToken = jwtService.createJwtToken("ca98047", "최진원");
         System.out.println(jwtToken);
@@ -39,6 +42,12 @@ public class JwtServiceTest {
         });
     }
 
+    @Test
+    void 토큰검증_성공() {
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqaW5vdyIsIm1lbWJlck5hbWUiOiLstZzsp4Tsm5AiLCJpYXQiOjE2MTA4NjE4NjksIm1lbWJlcklkIjoiY2E5ODA0NyJ9.k5zjVjO8-IIE8FFy2fKAUKVQw7jUYGSFNWKuyyyOOH4";
+        DecodedJWT decodedJWT = jwtService.parseToken(token);
+        assertEquals(decodedJWT.getIssuer(), "jinow");
+    }
 
     @Test
     public void 토큰_암복호화() {

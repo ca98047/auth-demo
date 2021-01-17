@@ -4,13 +4,21 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+@Service
+@RequiredArgsConstructor
 public class JwtServiceImpl implements JwtService {
 
-    private final String hmacSecretKey = "jinowKey";
-    private final String issuer = "jinow";
+    @Value("${jwt.hmac-secret}")
+    private String hmacSecretKey;
+
+    @Value("${jwt.issuer}")
+    private String issuer;
 
     @Override
     public String createJwtToken(String memberId, String memberName) {

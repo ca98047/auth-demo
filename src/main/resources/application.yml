@@ -2,6 +2,7 @@
 jwt:
   hmac-secret : ENC(zDxIxPJx949pUw4r0OZDURSYqfn9EwsS793FU3nBFmBeh8Mc94jS9MDN3p6ZdYls)
   issuer : jinow
+  token-expire-seconds : 3600
 
 jasypt:
   encryptor:

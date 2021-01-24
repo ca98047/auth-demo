@@ -1,6 +1,7 @@
 package com.jinow.auth.jwt.service;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.jinow.auth.AuthDemoApplication;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,13 @@ public class JwtServiceTest {
     }
 
     @Test
+    void expire된_토큰은_jwt검증실패() {
+        assertThrows(TokenExpiredException.class, () -> {
+            jwtService.parseToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqaW5vdyIsIm1lbWJlck5hbWUiOiLstZzsp4Tsm5AiLCJleHAiOjE2MTE0NzA1MjksImlhdCI6MTYxMTQ3MDQ5OSwibWVtYmVySWQiOiJjYTk4MDQ3In0.efBWO85Nvma71SwpXQAdFvvKwrImy9Qdvk1em8wOJgk");
+        });
+    }
+
+    @Test
     void 토큰검증_성공() {
         String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqaW5vdyIsIm1lbWJlck5hbWUiOiLstZzsp4Tsm5AiLCJpYXQiOjE2MTA4NjE4NjksIm1lbWJlcklkIjoiY2E5ODA0NyJ9.k5zjVjO8-IIE8FFy2fKAUKVQw7jUYGSFNWKuyyyOOH4";
         DecodedJWT decodedJWT = jwtService.parseToken(token);
@@ -52,7 +60,7 @@ public class JwtServiceTest {
     public void 토큰_암복호화() {
         String memberId = "ca98047";
         String memberName = "jinow.c";
-        String jwtToken = jwtService.createJwtToken("ca98047", memberName);
+        String jwtToken = jwtService.createJwtToken(memberId, memberName);
 
         DecodedJWT decodedJWT = jwtService.parseToken(jwtToken);
         assertEquals(decodedJWT.getIssuer(), "jinow");

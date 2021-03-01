@@ -4,17 +4,16 @@ import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.jinow.auth.AuthDemoApplication;
+import com.jinow.auth.annotation.SlowTest;
+import com.jinow.auth.config.TimingExtension;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.RepetitionInfo;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EmptySource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -22,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest(classes = AuthDemoApplication.class)
+@ExtendWith(TimingExtension.class)
 public class JwtServiceTest {
 
     @Autowired
@@ -37,6 +37,7 @@ public class JwtServiceTest {
     }
 
     @Test
+    @Disabled
     public void 토큰생성() {
         String jwtToken = jwtService.createJwtToken("ca98047", "최진원");
         System.out.println(jwtToken);
@@ -75,5 +76,9 @@ public class JwtServiceTest {
         assertNotNull(decodedJWT.getIssuedAt());
     }
 
+    @SlowTest
+    public void 오래_실행되는_테스트로직() throws InterruptedException {
+        Thread.sleep(2000);
+    }
 
 }

@@ -7,7 +7,14 @@ import com.jinow.auth.AuthDemoApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -56,10 +63,9 @@ public class JwtServiceTest {
         assertEquals(decodedJWT.getIssuer(), "jinow");
     }
 
-    @Test
-    public void 토큰_암복호화() {
-        String memberId = "ca98047";
-        String memberName = "jinow.c";
+    @ParameterizedTest(name = "토큰 암복호화 테스트 memberId = {0}, memberName = {1}")
+    @CsvSource({"ca98047, 최진원", "jinow.c, 진원최"})
+    public void 토큰_암복호화(String memberId, String memberName) {
         String jwtToken = jwtService.createJwtToken(memberId, memberName);
 
         DecodedJWT decodedJWT = jwtService.parseToken(jwtToken);

@@ -70,10 +70,12 @@ public class JwtServiceTest {
         String jwtToken = jwtService.createJwtToken(memberId, memberName);
 
         DecodedJWT decodedJWT = jwtService.parseToken(jwtToken);
-        assertEquals(decodedJWT.getIssuer(), "jinow");
-        assertEquals(decodedJWT.getClaim("memberId").asString(), memberId);
-        assertEquals(decodedJWT.getClaim("memberName").asString(), memberName);
-        assertNotNull(decodedJWT.getIssuedAt());
+        assertAll(
+                () -> assertEquals(decodedJWT.getIssuer(), "jinows"),
+                () -> assertEquals(decodedJWT.getClaim("memberId").asString(), "memberId"),
+                () -> assertEquals(decodedJWT.getClaim("memberName").asString(), memberName),
+                () -> assertNotNull(decodedJWT.getIssuedAt())
+        );
     }
 
     @SlowTest

@@ -6,7 +6,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.jinow.auth.AuthDemoApplication;
 import com.jinow.auth.annotation.SlowTest;
 import com.jinow.auth.config.TimingExtension;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -19,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Slf4j
 @SpringBootTest(classes = AuthDemoApplication.class)
 @ExtendWith(TimingExtension.class)
 public class JwtServiceTest {
@@ -71,8 +69,8 @@ public class JwtServiceTest {
 
         DecodedJWT decodedJWT = jwtService.parseToken(jwtToken);
         assertAll(
-                () -> assertEquals(decodedJWT.getIssuer(), "jinows"),
-                () -> assertEquals(decodedJWT.getClaim("memberId").asString(), "memberId"),
+                () -> assertEquals(decodedJWT.getIssuer(), "jinow"),
+                () -> assertEquals(decodedJWT.getClaim("memberId").asString(), memberId),
                 () -> assertEquals(decodedJWT.getClaim("memberName").asString(), memberName),
                 () -> assertNotNull(decodedJWT.getIssuedAt())
         );

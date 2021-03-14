@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 @Slf4j
@@ -26,7 +25,6 @@ public class Junit4Test {
         int num1 = 1;
         int num2 = 2;
         assertTrue(num1 + " > " + num2, num2<num1);
-        log.warn("hello");
     }
 
     @Test

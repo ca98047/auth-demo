@@ -7,15 +7,14 @@ import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.util.ObjectUtils;
 
-import java.util.logging.Logger;
-
 import java.lang.reflect.Method;
+import java.util.logging.Logger;
 
 public class TimingExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
     private static final Logger logger = Logger.getLogger(TimingExtension.class.getName());
     private static final String START_TIME = "start time";
-    private static final long TRESHOLD = 2000;
+    private static final long TRESHOLD = 1000;
 
     @Override
     public void beforeTestExecution(ExtensionContext context) throws Exception {

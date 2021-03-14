@@ -6,6 +6,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.jinow.auth.AuthDemoApplication;
 import com.jinow.auth.annotation.SlowTest;
 import com.jinow.auth.config.TimingExtension;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = AuthDemoApplication.class)
 @ExtendWith(TimingExtension.class)
+@Slf4j
 public class JwtServiceTest {
 
     @Autowired
@@ -50,9 +52,11 @@ public class JwtServiceTest {
 
     @Test
     void expire된_토큰은_jwt검증실패() {
-        assertThrows(TokenExpiredException.class, () -> {
+        TokenExpiredException tokenExpiredException = assertThrows(TokenExpiredException.class, () -> {
             jwtService.parseToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqaW5vdyIsIm1lbWJlck5hbWUiOiLstZzsp4Tsm5AiLCJleHAiOjE2MTE0NzA1MjksImlhdCI6MTYxMTQ3MDQ5OSwibWVtYmVySWQiOiJjYTk4MDQ3In0.efBWO85Nvma71SwpXQAdFvvKwrImy9Qdvk1em8wOJgk");
         });
+
+        log.warn(tokenExpiredException.getMessage());
     }
 
     @Test

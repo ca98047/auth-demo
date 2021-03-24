@@ -6,5 +6,5 @@ public interface JwtService {
 
     String createJwtToken(String memberId, String memberName);
 
-    DecodedJWT parseToken(String jwtToken);
+    DecodedJWT decodeToken(String jwtToken);
 }

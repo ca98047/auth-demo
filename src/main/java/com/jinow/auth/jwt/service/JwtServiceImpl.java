@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +24,12 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.token-expire-seconds}")
     private Long tokenExpireSeconds;
 
+    public JwtServiceImpl(String hmacSecretKey, String issuer, Long tokenExpireSeconds) {
+        this.hmacSecretKey = hmacSecretKey;
+        this.issuer = issuer;
+        this.tokenExpireSeconds = tokenExpireSeconds;
+    }
+
     @Override
     public String createJwtToken(String memberId, String memberName) {
         Algorithm algorithm = Algorithm.HMAC256(hmacSecretKey);
@@ -33,15 +38,14 @@ public class JwtServiceImpl implements JwtService {
         return JWT.create()
                 .withIssuer(issuer)
                 .withIssuedAt(DateUtil.convertToDate(now))
-                .withExpiresAt(DateUtil.convertToDate(now.plusSeconds(30)))
+                .withExpiresAt(DateUtil.convertToDate(now.plusSeconds(tokenExpireSeconds)))
                 .withClaim("memberId", memberId)
                 .withClaim("memberName", memberName)
-                .withIssuedAt(new Date())
                 .sign(algorithm);
     }
 
     @Override
-    public DecodedJWT parseToken(String jwtToken) {
+    public DecodedJWT decodeToken(String jwtToken) {
         Algorithm algorithm = Algorithm.HMAC256(hmacSecretKey);
         JWTVerifier jwtVerifier = JWT.require(algorithm)
                 .withIssuer(issuer)

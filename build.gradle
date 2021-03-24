@@ -26,6 +26,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.7.0'
     testImplementation 'org.projectlombok:lombok:1.18.4'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.4'
@@ -41,7 +42,6 @@ task integrationTest(type: Test) {
         includeTags 'integration'
     }
 }
-
 
 tasks.named("check") {
     dependsOn integrationTest

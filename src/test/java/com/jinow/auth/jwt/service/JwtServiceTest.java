@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -94,7 +94,7 @@ public class JwtServiceTest {
     }
 
     @ParameterizedTest(name = "토큰 암복호화 테스트 memberId = {0}, memberName = {1}")
-    @CsvSource({"ca98047, 최진원", "jinow.c, 진원최"})
+    @CsvFileSource(resources = "/data/data.csv")
     public void 토큰_암복호화(String memberId, String memberName) {
         String jwtToken = jwtService.createJwtToken(memberId, memberName);
 

@@ -29,7 +29,7 @@ public class JwtCreateAndParseScenarioTest {
 
     @IntegrationTest
     @Order(1)
-    void 비어있는_토큰은_복호화_되지않음() {
+    public void 비어있는_토큰은_복호화_되지않음() {
         assertThrows(JWTDecodeException.class, () -> {
             DecodedJWT decodedJWT = jwtService.decodeToken(token);
         });
